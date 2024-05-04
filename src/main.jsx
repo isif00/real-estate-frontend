@@ -8,26 +8,36 @@ import {
 } from "react-router-dom";
 
 import Client from './Pages/Client.jsx';
-import RealEstate from './Pages/RealEstate.jsx';
+
 import Transaction from './Pages/Transaction.jsx';
 
 import { NavBar } from './components/MainComponents/NavBar/NavBar'
 import SideNavBar from './components/MainComponents/SideNavBar/SideNavBar'
+import Dashboard from './Pages/Dashboard.jsx';
+import Agent from './Pages/Agent.jsx';
+import Errorpage from './Pages/Erorrpage.jsx';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/client",
     element: <Client />,
   },
   {
-    path: "/RealEstate",
-    element: <RealEstate />,
+    path: "/",
+    element: <Dashboard />,
   },
   {
-    path: "/Transaction",
+    path: "/transaction",
     element: <Transaction />,
+  },
+  {
+    path: "/agent",
+    element: <Agent />,
+  },
+  {
+    path: "/*",
+    element: <Errorpage />
   }
-
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -35,5 +45,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <NavBar />
     <SideNavBar />
     <RouterProvider router={router} />
-  </React.StrictMode>,
+  </React.StrictMode>
 )
