@@ -1,0 +1,16 @@
+.client-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
+    padding-left: 250px;
+    padding-right: 250px;
+    padding-top: 50px;
+  }
+  
+  .client-card {
+    width: calc(25% - 20px);
+    margin-bottom: 20px;
+  }
+  
+  

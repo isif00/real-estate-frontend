@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { Card } from "flowbite-react";
+import React, {useState} from 'react';
 import axios from 'axios';
-import UpdateClientPopup from './UpdateClientPopup';
+import { Card } from "flowbite-react";
+import UpdateRealEstatePopup from './UpdateRealEstatePopup';
 
 
-export function ClientCard({ id, name, phone, email, city, clientType }) {
+export function RealEstateCard({ id, name, address, city, stat, price, zip, availibilty, listingType}) {
     const baseUrl = import.meta.env.VITE_HOST_URL;
 
     const [showUpdatePopup, setShowUpdatePopup] = useState(false);
     const handleDelete = (id) => {
-        axios.delete(`${baseUrl}/api/v1/client/delete/${id}`)
+        axios.delete(`${baseUrl}/api/v1/real-estate/delete/${id}`)
             .then(response => {
                 console.log('Delete request successful:', response);
                 window.location.reload();
@@ -23,10 +23,14 @@ export function ClientCard({ id, name, phone, email, city, clientType }) {
         <Card className="max-w-sm">
             <div className="flex flex-col items-center pb-10">
                 <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{name}</h5>
-                <span className="text-sm text-gray-500 dark:text-gray-400">{phone}</span>
-                <span className="text-sm text-gray-500 dark:text-gray-400">{email}</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">{address}</span>
                 <span className="text-sm text-gray-500 dark:text-gray-400">{city}</span>
-                <span className="text-sm text-gray-500 dark:text-gray-400">{clientType}</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">{stat}</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">{price}</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">{price}</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">{zip}</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">{availibilty}</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">{listingType}</span>
                 <div className="mt-4 flex space-x-3 lg:mt-6">
                     <button
                         onClick={() => setShowUpdatePopup(true)}
@@ -35,7 +39,7 @@ export function ClientCard({ id, name, phone, email, city, clientType }) {
                         Update
                     </button>
                     {showUpdatePopup && (
-                        <UpdateClientPopup id={id} onClose={() => (setShowUpdatePopup(false))} />
+                        <UpdateRealEstatePopup id={id} onClose={() => (setShowUpdatePopup(false))} />
                     )}
                     <button
                         onClick={() => handleDelete(id)}
@@ -49,4 +53,4 @@ export function ClientCard({ id, name, phone, email, city, clientType }) {
     );
 }
 
-export default ClientCard;
+export default RealEstateCard;

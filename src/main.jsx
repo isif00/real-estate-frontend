@@ -14,8 +14,9 @@ import Transaction from './Pages/Transaction.jsx';
 import { NavBar } from './components/MainComponents/NavBar/NavBar'
 import SideNavBar from './components/MainComponents/SideNavBar/SideNavBar'
 import Dashboard from './Pages/Dashboard.jsx';
-import Agent from './Pages/Agent.jsx';
+import RealEstate from './Pages/RealEstate.jsx';
 import Errorpage from './Pages/Erorrpage.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -31,8 +32,8 @@ const router = createBrowserRouter([
     element: <Transaction />,
   },
   {
-    path: "/agent",
-    element: <Agent />,
+    path: "/real-estate",
+    element: <RealEstate />,
   },
   {
     path: "/*",
