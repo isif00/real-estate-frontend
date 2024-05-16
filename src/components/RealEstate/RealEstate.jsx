@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Card } from "flowbite-react";
 import UpdateRealEstatePopup from './UpdateRealEstatePopup';
 import { DetailsPopup } from './ShowDetailsPopup';
+import { BuyPopup } from './BuyRealEstate';
 
 
 export function RealEstateCard({ id, name, address, city, stat, price, zip, availibilty, listingType, ownerId }) {
@@ -10,6 +11,7 @@ export function RealEstateCard({ id, name, address, city, stat, price, zip, avai
 
     const [showUpdatePopup, setShowUpdatePopup] = useState(false);
     const [showDetailsPopup, setShowDetailsPopup] = useState(false);
+    const [showBuyPopup, setBuyPopup] = useState(false);
 
     const handleDelete = (id) => {
         axios.delete(`${baseUrl}/api/v1/real-estate/delete/${id}`)
@@ -58,6 +60,15 @@ export function RealEstateCard({ id, name, address, city, stat, price, zip, avai
                     </button>
                     {showDetailsPopup && (
                         <DetailsPopup id={id} ownerId={ownerId} onClose={() => (setShowDetailsPopup(false))} />
+                    )}                    
+                    <button
+                        onClick={() => setBuyPopup(true)}
+                        className="inline-flex items-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+                    >
+                        Transaction
+                    </button>
+                    {showBuyPopup && (
+                        <BuyPopup id={id} onClose={() => (setBuyPopup(false))} />
                     )}
                 </div>
             </div>
