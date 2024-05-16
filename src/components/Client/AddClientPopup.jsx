@@ -11,7 +11,7 @@ function AddClientPopup({ onClose }) {
     const [email, setEmail] = useState('');
     const [city, setCity] = useState('');
     const [clientType, setClientType] = useState('');
-    
+
     const handleAdding = () => {
         const newData = { name, phone, email, city, clientType, realEstateIds: [], transactionIds: []};
         axios.post(`${baseUrl}/api/v1/client/add`, newData)

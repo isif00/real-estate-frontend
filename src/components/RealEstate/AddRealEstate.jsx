@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../Client/UpdateClientPopup.css';
-import { useEffect } from 'react';
 
-function AddRealEstate({ onClose, id }) {
+function AddRealEstate({ id, onClose}) {
     const baseUrl = import.meta.env.VITE_HOST_URL;
 
     const [name, setName] = useState('');
@@ -14,16 +13,11 @@ function AddRealEstate({ onClose, id }) {
     const [price, setPrice] = useState('');
     const [availability, setAvailability] = useState('');
     const [listingType, setListingType] = useState('');
-    const [realEstateReceived, setRealEstateReceived] = useState(false);
 
-    useEffect(() => {
-        if (id !== undefined) {
-            setRealEstateReceived(true);
-        }
-    }, [id]);
 
     const handleCreating = async () => {
-        const newData = { name, city, address, description, state, price, availability, listingType };
+        console.log(id);
+        const newData = { name, city, address, description, state, price, availability, listingType, ownerId: id};
         try {
             const response = await axios.post(`${baseUrl}/api/v1/real-estate/add`, newData);
             console.log('Real Estate Created', response.data);
@@ -38,14 +32,13 @@ function AddRealEstate({ onClose, id }) {
         console.log('Adding Real Estate to Client');
         handleCreating()
             .then(realEstateId => {
-                const RealEstateId = { realEstateId : realEstateId };
+                const RealEstateId = { realEstateId: realEstateId };
                 console.log(RealEstateId);
                 return axios.put(`${baseUrl}/api/v1/client/add-real-estate/${id}`, RealEstateId);
             })
             .then(response => {
                 console.log(`Real Estate Created and Added to ${id}`, response);
                 onClose();
-                window.location.reload();
             })
             .catch(error => {
                 console.error('Error creating and adding Real Estate:', error);
@@ -71,15 +64,9 @@ function AddRealEstate({ onClose, id }) {
                     <option value="FOR_SALE">FOR_SALE</option>
                     <option value="FOR_RENT">FOR_RENT</option>
                 </select>
-                {!realEstateReceived && (
-                    <button onClick={() =>{
-                        handleCreating();
-                        window.location.reload();
-                    }}>Create</button>
-                )}
-                {realEstateReceived && (
-                    <button onClick={handleAddingToClient}>Create and Add</button>
-                )}
+                <button onClick={() => {
+                    handleAddingToClient();
+                }}>Create</button>
                 <button onClick={onClose}>Cancel</button>
             </div>
         </div>
