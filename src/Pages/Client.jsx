@@ -28,15 +28,15 @@ function Client() {
   );
 
   return (
-    <>
-      <div className="page-header">
-        <div className="search-bar">
+    <div className='flex flex-col mx-8 mt-8'>
+      <div className="flex mb-5">
+        <div className="">
           <input
             type="text"
             placeholder="Search clients..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="h-[30px]"
+            className="h-[30px] text-black"
           />
         </div>
         <button
@@ -49,9 +49,10 @@ function Client() {
           <AddClientPopup onClose={() => setShowCreatePopup(false)} />
         )}
       </div>
-      <div className="client-container">
+      <div className="flex gap-5">
         {filteredClients.map(client => (
           <ClientCard
+            className="px-4 py-4"
             id={client.id}
             key={client.id}
             name={client.name}
@@ -62,7 +63,7 @@ function Client() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

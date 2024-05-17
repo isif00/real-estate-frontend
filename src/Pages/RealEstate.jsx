@@ -26,9 +26,9 @@ function RealEstate() {
     );
 
     return (
-        <>
-            <div className="page-header">
-                <div className="search-bar">
+        <div className='flex flex-col mx-8 mt-8'>
+            <div className="flex mb-5">
+                <div className="">
                     <input
                         type="text"
                         placeholder="Search real estates..."
@@ -55,7 +55,7 @@ function RealEstate() {
                     />
                 ))}
             </div>
-        </>
+        </div>
     )
 }
 

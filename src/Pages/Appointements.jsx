@@ -37,7 +37,7 @@ export default function Appointments() {
   }, [baseUrl]);
 
   return (
-    <div className='client-container'>
+    <div className='client-container mx-8 mt-10 gap-6 flex text-black'>
       {appointments.map(appointment => (
         <AppointmentCard
           id={appointment.id}

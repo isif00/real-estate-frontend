@@ -1,49 +1,42 @@
 .client-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 20px;
-    padding-left: 250px;
-    padding-right: 130px;
-    padding-top: 50px;
-  }
-  
-  .client-card {
-    width: calc(25% - 20px);
-    margin-bottom: 20px;
-  }
-  
-  .transaction-container {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 20px;
-    padding-left: 250px;
-    padding-top: 50px;
-  }
-  
-  .search-bar {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .search-input {
-    width: 100%;
-    max-width: 400px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    text-align: center;
-  }
-  
-  .page-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: horizontal;
-    padding-left: 250px;
-    padding-right: 130px;
-    padding-top: 50px;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+
+}
+
+.client-card {
+  width: calc(25% - 20px);
+  margin-bottom: 20px;
+}
+
+.transaction-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: horizontal;
+  height: 400px;
+}

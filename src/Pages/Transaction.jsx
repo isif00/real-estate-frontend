@@ -58,7 +58,7 @@ const handlePrintClick = async (transaction) => {
 };
 
 return (
-  <div className="transaction-container">
+  <div className="w-full mx-7 mt-8">
     <div className="overflow-x-auto">
       <Table>
         <Table.Head>

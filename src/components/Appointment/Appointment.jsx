@@ -19,8 +19,8 @@ export function AppointmentCard({ id, clientName, clientId, clientPhoneNumber, c
     };
 
     return (
-        <Card className="max-w-sm">
-            <div className="flex flex-col items-center pb-10">
+        <Card className="max-w-sm h-[200px] w-[320px]">
+            <div className="flex flex-col items-center p-4 text-xl">
                 <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{clientName}</h5>
                 <span className="text-sm text-gray-500 dark:text-gray-400">{clientPhoneNumber}</span>
                 <span className="text-sm text-gray-500 dark:text-gray-400">{clientEmail}</span>
