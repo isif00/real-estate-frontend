@@ -23,3 +23,27 @@
     padding-top: 50px;
   }
   
+  .search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  .page-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: horizontal;
+    padding-left: 250px;
+    padding-right: 130px;
+    padding-top: 50px;
+  }

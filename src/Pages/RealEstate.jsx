@@ -8,6 +8,7 @@ function RealEstate() {
     const baseUrl = import.meta.env.VITE_HOST_URL;
 
     const [RealEstate, setRealEstate] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         axios.get(`${baseUrl}/api/v1/real-estate/all`)
@@ -17,24 +18,48 @@ function RealEstate() {
             });
     }, []);
 
+    const filteredRealEstate = RealEstate.filter(realEstate =>
+        realEstate.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        realEstate.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        realEstate.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        realEstate.state.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        realEstate.zip.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        realEstate.price.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        realEstate.availability.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        realEstate.listingType.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
-        <div className="client-container">
-            {RealEstate.map(realEstate => (
-                <RealEstateCard
-                    id={realEstate.id}
-                    key={realEstate.id}
-                    name={realEstate.name}
-                    address={realEstate.address}
-                    city={realEstate.city}
-                    state={realEstate.state}
-                    price={realEstate.price}
-                    zip={realEstate.zip}
-                    availibilty={realEstate.availability}
-                    listingType={realEstate.listingType}
-                    ownerId={realEstate.ownerId}
-                />
-            ))}
-        </div>
+        <>
+            <div className="page-header">
+                <div className="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Search clients..."
+                        value={searchQuery}
+                        onChange={e => setSearchQuery(e.target.value)}
+                        className="search-input"
+                    />
+                </div>
+            </div>
+            <div className="client-container">
+                {filteredRealEstate.map(realEstate => (
+                    <RealEstateCard
+                        id={realEstate.id}
+                        key={realEstate.id}
+                        name={realEstate.name}
+                        address={realEstate.address}
+                        city={realEstate.city}
+                        state={realEstate.state}
+                        price={realEstate.price}
+                        zip={realEstate.zip}
+                        availibilty={realEstate.availability}
+                        listingType={realEstate.listingType}
+                        ownerId={realEstate.ownerId}
+                    />
+                ))}
+            </div>
+        </>
     )
 }
 
