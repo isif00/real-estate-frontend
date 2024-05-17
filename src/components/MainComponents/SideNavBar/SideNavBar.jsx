@@ -32,6 +32,12 @@ export default function SideNavBar() {
                       Transactions
                   </a>
               </div>
+              <div className="sidebar-item">
+                  <a href="/appointements" className="text-white">
+                      <HiViewBoards className="icon" />
+                      Appointements
+                  </a>
+              </div>
           </div>
       </div>
   </div>

@@ -3,12 +3,14 @@ import { Card } from "flowbite-react";
 import axios from 'axios';
 import UpdateClientPopup from './UpdateClientPopup';
 import AddRealEstate from "../RealEstate/AddRealEstate";
+import AddAppointmentPopup from "../Appointment/AddAppointment";
 
 export function ClientCard({ id, name, phone, email, city, clientType }) {
     const baseUrl = import.meta.env.VITE_HOST_URL;
 
     const [showUpdatePopup, setShowUpdatePopup] = useState(false);
     const [showAddRealEstatePopup, setShowAddRealEstatePopup] = useState(false);
+    const [showAddAppointmentPopup, setShowAddAppointmentPopup] = useState(false);
 
     const handleDelete = (id) => {
         axios.delete(`${baseUrl}/api/v1/client/delete/${id}`)
@@ -53,6 +55,15 @@ export function ClientCard({ id, name, phone, email, city, clientType }) {
                     </button>
                     {showAddRealEstatePopup && (
                         <AddRealEstate id={id} onClose={() => setShowAddRealEstatePopup(false)} />
+                    )}
+                    <button
+                        onClick={() => setShowAddAppointmentPopup(true)}
+                        className="inline-flex items-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+                    >
+                        Add Appointment
+                    </button>
+                    {showAddAppointmentPopup && (
+                        <AddAppointmentPopup id={id} onClose={() => setShowAddAppointmentPopup(false)} />
                     )}
                 </div>
             </div>

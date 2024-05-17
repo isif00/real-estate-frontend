@@ -77,7 +77,7 @@ export function BuyPopup({ onClose, id }) {
                     </div>
                     <input type="text" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price" />
                     <select value={transactionType} onChange={(e) => setTransactionType(e.target.value)}>
-                        <option value="">Select client type</option>
+                        <option value="">Select transaction type</option>
                         <option value="BUY">BUY</option>
                         <option value="RENT">RENT</option>
                     </select>

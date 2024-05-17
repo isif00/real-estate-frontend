@@ -33,11 +33,8 @@ function AddRealEstate({ id, onClose}) {
         handleCreating()
             .then(realEstateId => {
                 const RealEstateId = { realEstateId: realEstateId };
-                console.log(RealEstateId);
-                return axios.put(`${baseUrl}/api/v1/client/add-real-estate/${id}`, RealEstateId);
-            })
-            .then(response => {
-                console.log(`Real Estate Created and Added to ${id}`, response);
+                console.log("----->", id, RealEstateId);
+                axios.put(`${baseUrl}/api/v1/client/add-real-estate/${id}`, RealEstateId);
                 onClose();
             })
             .catch(error => {

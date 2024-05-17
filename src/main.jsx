@@ -16,6 +16,7 @@ import SideNavBar from './components/MainComponents/SideNavBar/SideNavBar'
 import Dashboard from './Pages/Dashboard.jsx';
 import RealEstate from './Pages/RealEstate.jsx';
 import Errorpage from './Pages/Erorrpage.jsx';
+import Appointements from './Pages/Appointements.jsx';
 
 
 const router = createBrowserRouter([
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/real-estate",
     element: <RealEstate />,
+  },
+  {
+    path: "/appointements",
+    element: <Appointements />,
   },
   {
     path: "/*",
