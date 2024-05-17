@@ -16,17 +16,13 @@ function RealEstate() {
                 setRealEstate(response.data);
                 console.log(response.data);
             });
-    }, []);
+    }, [baseUrl]);
 
     const filteredRealEstate = RealEstate.filter(realEstate =>
         realEstate.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         realEstate.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
         realEstate.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        realEstate.state.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        realEstate.zip.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        realEstate.price.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        realEstate.availability.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        realEstate.listingType.toLowerCase().includes(searchQuery.toLowerCase())
+        realEstate.state.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
@@ -35,7 +31,7 @@ function RealEstate() {
                 <div className="search-bar">
                     <input
                         type="text"
-                        placeholder="Search clients..."
+                        placeholder="Search real estates..."
                         value={searchQuery}
                         onChange={e => setSearchQuery(e.target.value)}
                         className="search-input"
