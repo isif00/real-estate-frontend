@@ -48,8 +48,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <div className='flex flex-col'>
     <NavBar />
-    <SideNavBar />
-    <RouterProvider router={router} />
+      <div className='flex'>
+        <SideNavBar />
+        <RouterProvider router={router} />
+      </div>
+    </div>
   </React.StrictMode>
 )

@@ -34,7 +34,7 @@ function RealEstate() {
                         placeholder="Search real estates..."
                         value={searchQuery}
                         onChange={e => setSearchQuery(e.target.value)}
-                        className="search-input"
+                        className="h-[30px]"
                     />
                 </div>
             </div>

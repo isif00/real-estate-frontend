@@ -36,11 +36,11 @@ function Client() {
             placeholder="Search clients..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="search-input"
+            className="h-[30px]"
           />
         </div>
         <button
-          className="inline-flex items-center rounded-lg bg-cyan-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
+          className="inline-flex items-center rounded-lg bg-cyan-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 h-[30px] dark:focus:ring-cyan-800"
           onClick={() => setShowCreatePopup(true)}
         >
           Add Client
