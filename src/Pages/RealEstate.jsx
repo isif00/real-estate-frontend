@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import RealEstateCard from "../components/RealEstate/RealEstate";
-import "./Client.css";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 
 function RealEstate() {
   const baseUrl = import.meta.env.VITE_HOST_URL;
 
   const [RealEstate, setRealEstate] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios.get(`${baseUrl}/api/v1/real-estate/all`).then((response) => {
       setRealEstate(response.data);
+      setLoading(false);
       console.log(response.data);
     });
   }, [baseUrl]);
@@ -39,6 +41,11 @@ function RealEstate() {
         </div>
       </div>
       <div className=" flex mx-8 gap-5">
+        {loading && (
+          <Box sx={{ width: "100%" }}>
+            <LinearProgress />
+          </Box>
+        )}
         {filteredRealEstate.map((realEstate) => (
           <RealEstateCard
             id={realEstate.id}

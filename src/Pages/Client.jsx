@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import ClientCard from "../components/Client/client";
 import AddClientPopup from "../components/Client/AddClientPopup";
 import axios from "axios";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 
 function Client() {
   const hostUrl = import.meta.env.VITE_HOST_URL;
@@ -9,10 +11,12 @@ function Client() {
   const [clients, setClients] = useState([]);
   const [showCreatePopup, setShowCreatePopup] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios.get(`${hostUrl}/api/v1/client/all`).then((response) => {
       setClients(response.data);
+      setLoading(false);
       console.log(response.data);
     });
   }, [hostUrl]);
@@ -53,6 +57,11 @@ function Client() {
       </div>
 
       <div className="flex mx-8 gap-5 overflow-auto">
+        {loading && (
+          <Box sx={{ width: "100%" }}>
+            <LinearProgress />
+          </Box>
+        )}
         {filteredClients.map((client) => (
           <ClientCard
             className="px-4 py-4"

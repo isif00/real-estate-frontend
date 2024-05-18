@@ -2,19 +2,22 @@ import { useState, useEffect } from "react";
 import { Table } from "flowbite-react";
 import axios from "axios";
 import generatePDF from "../components/Transaction/TransactionTemplate";
-import "./Client.css";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 
 function Transaction() {
   const baseUrl = import.meta.env.VITE_HOST_URL;
   const [transactions, setTransactions] = useState([]);
   const [buyerNames, setBuyerNames] = useState({});
   const [realEstateNames, setRealEstateNames] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get(`${baseUrl}/api/v1/transaction/all`)
       .then((response) => {
         setTransactions(response.data);
+        setLoading(false);
         console.log(response.data);
 
         const buyerIds = [
@@ -83,6 +86,11 @@ function Transaction() {
   return (
     <div className="flex flex-col h-full overflow-hidden px-10 py-10">
       <div className="overflow-x-auto ">
+        {loading && (
+          <Box sx={{ width: "100%" }}>
+            <LinearProgress />
+          </Box>
+        )}
         <Table>
           <Table.Head className="bg-white border border-zinc-200">
             <Table.HeadCell className="bg-white ">
