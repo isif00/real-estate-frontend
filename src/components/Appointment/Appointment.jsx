@@ -1,22 +1,18 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { Card } from "flowbite-react";
 import axios from "axios";
 import {
   MdOutlineDelete,
-  MdOutlineModeEdit,
   MdOutlinePhone,
   MdOutlineEmail,
   MdOutlineHomeWork,
-  MdPersonOutline,
 } from "react-icons/md";
 
 export function AppointmentCard({
   id,
   clientName,
-  clientId,
   clientPhoneNumber,
   clientEmail,
-  date,
 }) {
   const baseUrl = import.meta.env.VITE_HOST_URL;
 
@@ -42,7 +38,7 @@ export function AppointmentCard({
           </h5>{" "}
           <button
             onClick={() => handleDelete(id)}
-            className="inline-flex items-center rounded-xl items-center  justify-center  border border-gray-300 bg-[#e30000]   px-4 py-2 text-center text-md flex items-center font-medium text-white hover:bg-[#f05656] focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+            className="rounded-xl  justify-center  border border-gray-300 bg-[#e30000]   px-4 py-2 text-center text-md flex items-center font-medium text-white hover:bg-[#f05656] focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
           >
             <MdOutlineDelete className="text-xl items-center font-semibold" />
           </button>

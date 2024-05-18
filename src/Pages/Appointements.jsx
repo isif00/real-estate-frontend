@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { AppointmentCard } from "../components/Appointment/Appointment";
 import axios from "axios";
-import "./Client.css";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 
 export default function Appointments() {
   const baseUrl = import.meta.env.VITE_HOST_URL;
   const [appointments, setAppointments] = useState([]);
   const [clientDetails, setClientDetails] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -14,6 +16,7 @@ export default function Appointments() {
       .then((response) => {
         setAppointments(response.data);
         console.log(response.data);
+        setLoading(false);
         const clientIds = [
           ...new Set(response.data.map((appointment) => appointment.clientId)),
         ];
@@ -42,6 +45,11 @@ export default function Appointments() {
 
   return (
     <div className="client-container mx-8 mt-10 gap-6 flex text-black">
+      {loading && (
+        <Box sx={{ width: "100%" }}>
+          <LinearProgress />
+        </Box>
+      )}
       {appointments.map((appointment) => (
         <AppointmentCard
           id={appointment.id}
