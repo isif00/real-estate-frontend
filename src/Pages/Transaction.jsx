@@ -9,6 +9,7 @@ export default function Transaction() {
   const baseUrl = import.meta.env.VITE_HOST_URL;
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     axios
@@ -37,61 +38,84 @@ export default function Transaction() {
       });
   };
 
+  const filtredTransactions = transactions.filter(
+    (transaction) =>
+      transaction.id.toString().toLowerCase().includes(searchQuery.toLowerCase()) ||
+      transaction.client.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      transaction.realEstate.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      transaction.transactionType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      transaction.transactionFee.toString().toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <div className="flex flex-col h-full overflow-hidden px-10 py-10">
+    <div className="flex flex-col h-full overflow-hidden">
+      <div className="py-4 mb-4 w-[1250px] border-b  border-zinc-200 flex items-center">
+        <p className=" mx-8 text-3xl ">Transactions</p>
+        <div className=" w-[300px] flex  items-center ">
+          <input
+            type="text"
+            placeholder="Search Transaction..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="h-[30px] text-black border p-2 rounded-md"
+          />
+        </div>
+      </div>
       <div className="overflow-x-auto ">
         {loading && (
           <Box sx={{ width: "100%" }}>
             <LinearProgress />
           </Box>
         )}
-        <Table>
-          <Table.Head className="bg-white border border-zinc-200">
-            <Table.HeadCell className="bg-white ">
-              Transaction Id
-            </Table.HeadCell>
-            <Table.HeadCell className="bg-white">Buyer</Table.HeadCell>
-            <Table.HeadCell className="bg-white">RealEstate</Table.HeadCell>
-            <Table.HeadCell className="bg-white">Price</Table.HeadCell>
-            <Table.HeadCell className="bg-white">Type</Table.HeadCell>
-            <Table.HeadCell className="bg-white">Action 1</Table.HeadCell>
-            <Table.HeadCell className="bg-white">Action 2</Table.HeadCell>
-          </Table.Head>
-          <Table.Body className="divide-y">
-            {transactions.map((transaction) => (
-              <Table.Row
-                className="bg-white border border-zinc-200 dark:border-gray-700 dark:bg-gray-800"
-                key={transaction.id}
-              >
-                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  {transaction.id}
-                </Table.Cell>
-                <Table.Cell>{transaction.client.name}</Table.Cell>
-                <Table.Cell>
-                  {transaction.realEstate.name}
-                </Table.Cell>
-                <Table.Cell>{transaction.transactionFee}</Table.Cell>
-                <Table.Cell>{transaction.transactionType}</Table.Cell>
-                <Table.Cell>
-                  <button
-                    className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
-                    onClick={() => handlePrintClick(transaction)}
-                  >
-                    Print
-                  </button>
-                </Table.Cell>
-                <Table.Cell>
-                  <button
-                    className="font-medium text-[#c23838] hover:underline dark:text-red-500"
-                    onClick={() => handleDelete(transaction.id)}
-                  >
-                    Delete
-                  </button>
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
+        <div className="flex flex-col gap-5 mx-8">
+          <Table>
+            <Table.Head className="bg-white border border-zinc-200">
+              <Table.HeadCell className="bg-white ">
+                Transaction Id
+              </Table.HeadCell>
+              <Table.HeadCell className="bg-white">Buyer</Table.HeadCell>
+              <Table.HeadCell className="bg-white">RealEstate</Table.HeadCell>
+              <Table.HeadCell className="bg-white">Price</Table.HeadCell>
+              <Table.HeadCell className="bg-white">Type</Table.HeadCell>
+              <Table.HeadCell className="bg-white">Action 1</Table.HeadCell>
+              <Table.HeadCell className="bg-white">Action 2</Table.HeadCell>
+            </Table.Head>
+            <Table.Body className="divide-y">
+              {filtredTransactions.map((transaction) => (
+                <Table.Row
+                  className="bg-white border border-zinc-200 dark:border-gray-700 dark:bg-gray-800"
+                  key={transaction.id}
+                >
+                  <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                    {transaction.id}
+                  </Table.Cell>
+                  <Table.Cell>{transaction.client.name}</Table.Cell>
+                  <Table.Cell>
+                    {transaction.realEstate.name}
+                  </Table.Cell>
+                  <Table.Cell>{transaction.transactionFee}</Table.Cell>
+                  <Table.Cell>{transaction.transactionType}</Table.Cell>
+                  <Table.Cell>
+                    <button
+                      className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                      onClick={() => handlePrintClick(transaction)}
+                    >
+                      Print
+                    </button>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <button
+                      className="font-medium text-[#c23838] hover:underline dark:text-red-500"
+                      onClick={() => handleDelete(transaction.id)}
+                    >
+                      Delete
+                    </button>
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+        </div>
       </div>
     </div>
   );

@@ -7,7 +7,6 @@ import LinearProgress from "@mui/material/LinearProgress";
 export default function Appointments() {
   const baseUrl = import.meta.env.VITE_HOST_URL;
   const [appointments, setAppointments] = useState([]);
-  const [clientDetails, setClientDetails] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
