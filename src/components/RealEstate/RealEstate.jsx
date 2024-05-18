@@ -50,6 +50,19 @@ export function RealEstateCard({
       });
   };
 
+  const realEstate = {
+    id,
+    name,
+    address,
+    city,
+    state,
+    price,
+    availibilty,
+    description,
+    listingType,
+    ownerId,
+  };
+
   return (
     <Card className="w-[340px] 	shadow-white  border-zinc-200 	  ">
       <div className="flex flex-col gap-6  py-1 ">
@@ -118,7 +131,7 @@ export function RealEstateCard({
             Transaction
           </button>
           {showBuyPopup && (
-            <BuyPopup id={id} onClose={() => setBuyPopup(false)} />
+            <BuyPopup realEstate={realEstate} onClose={() => setBuyPopup(false)} />
           )}
           <button
             onClick={() => setShowDetailsPopup(true)}

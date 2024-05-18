@@ -80,5 +80,4 @@ export default Dashboard;
 // TODO: update the client transactions (backend and frontend)
 // TODO: display the client transactions
 // TODO: add the name of the client and the realestate to the transaction
-// TODO: update the owner of the realestate when buying (backend and frontend)
 // TODO: implement the agents authentifications (backend and frontend)

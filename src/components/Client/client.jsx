@@ -34,6 +34,17 @@ export function ClientCard({ id, name, phone, email, city, clientType }) {
       });
   };
 
+  const client = {
+    id,
+    name,
+    phone,
+    email,
+    city: null,
+    clientType: null,
+    realEstateIds: null,
+    transactionIds: null,
+  };
+
   return (
     <Card className="w-[340px] 	shadow-white  border-zinc-200 	  ">
       <div className="flex flex-col gap-6  py-1 ">
@@ -103,7 +114,7 @@ export function ClientCard({ id, name, phone, email, city, clientType }) {
           </button>
           {showAddAppointmentPopup && (
             <AddAppointmentPopup
-              id={id}
+              client={client}
               onClose={() => setShowAddAppointmentPopup(false)}
             />
           )}{" "}

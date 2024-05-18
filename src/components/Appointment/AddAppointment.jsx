@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 
-function AddAppointmentPopup({ id, onClose }) {
+function AddAppointmentPopup({ client, onClose }) {
     const baseUrl = import.meta.env.VITE_HOST_URL;
 
     const [date, setDate] = useState(null);
@@ -18,7 +18,7 @@ function AddAppointmentPopup({ id, onClose }) {
 
     const handleCreating = async () => {
         console.log(date);
-        const newData = { date, clientId: id};
+        const newData = { date, client: client};
         try {
             const response = await axios.post(`${baseUrl}/api/v1/appointment/add`, newData);
             console.log('Appointment Created', response.data);

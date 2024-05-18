@@ -5,7 +5,7 @@ import "../Client/UpdateClientPopup.css";
 
 function UpdateRealEstatePopup({ id, onClose }) {
   const [name, setName] = useState("");
-  const [address, setAdress] = useState("");
+  const [address, setAddress] = useState("");
   const [description, setDescription] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -16,29 +16,17 @@ function UpdateRealEstatePopup({ id, onClose }) {
   const baseUrl = import.meta.env.VITE_HOST_URL;
 
   const handleUpdate = () => {
-    if (
-      !name ||
-      !address ||
-      !description ||
-      !city ||
-      !state ||
-      !price ||
-      !availability ||
-      !listingType
-    ) {
-      alert("Please fill all the fields.");
-      return;
-    }
     const newData = {
-      name,
-      address,
-      description,
-      city,
-      state,
-      price,
-      availability,
-      listingType,
+      name: name || null,
+      address: address || null,
+      description: description || null,
+      city: city || null,
+      state: state || null,
+      price: price ? parseFloat(price) : null,
+      availability: availability || null,
+      listingType: listingType || null,
     };
+
     axios
       .put(`${baseUrl}/api/v1/real-estate/update/${id}`, newData)
       .then((response) => {
@@ -63,8 +51,8 @@ function UpdateRealEstatePopup({ id, onClose }) {
         <input
           type="text"
           value={address}
-          onChange={(e) => setAdress(e.target.value)}
-          placeholder="Adress"
+          onChange={(e) => setAddress(e.target.value)}
+          placeholder="Address"
         />
         <input
           type="text"

@@ -12,12 +12,14 @@ function UpdateClientPopup({ id, onClose }) {
   const baseUrl = import.meta.env.VITE_HOST_URL;
 
   const handleUpdate = () => {
-    if (!name || !phone || !email || !city || !clientType) {
-      alert("Please fill all the fields.");
-      return;
-    }
 
-    const newData = { name, phone, email, city, clientType };
+    const newData = {
+      name: name || null,
+      phone: phone || null,
+      email: email || null,
+      city: city || null,
+      clientType: clientType || null,
+    };
     axios
       .put(`${baseUrl}/api/v1/client/update/${id}`, newData)
       .then((response) => {

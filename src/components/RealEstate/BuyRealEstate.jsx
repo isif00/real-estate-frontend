@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Modal } from "flowbite-react";
 import axios from "axios";
 
-export function BuyPopup({ onClose, id }) {
+export function BuyPopup({ onClose, realEstate }) {
   const baseUrl = import.meta.env.VITE_HOST_URL;
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
@@ -23,9 +23,8 @@ export function BuyPopup({ onClose, id }) {
       });
   }, [baseUrl]);
 
-  const userNamesWithIds = clients.map(({ id, name }) => ({ id, name }));
 
-  const filteredUsers = userNamesWithIds.filter((client) =>
+  const filteredUsers = clients.filter((client) =>
     client.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -41,10 +40,9 @@ export function BuyPopup({ onClose, id }) {
       return;
     }
 
-    
     const newTransaction = {
-      realEstateId: id,
-      buyerId: selectedUser.id,
+      realEstate: realEstate,
+      client: selectedUser,
       transactionType,
       transactionFee: price,
     };
@@ -61,12 +59,27 @@ export function BuyPopup({ onClose, id }) {
       });
   };
 
-  const handleAddTransactionToClient = () => {
+  const handleAddTransactionToClient = (id) => {
     console.log("Adding transaction to client");
     console.log("----->", id);
     axios.put(`${baseUrl}/api/v1/client/add-transaction/${selectedUser.id}`, {
       transactionId: id,
     });
+
+    if (transactionType === "BUY") {
+      axios.put(`${baseUrl}/api/v1/real-estate/update/${id}`, {
+        availability: "NOT_AVAILABLE",
+        ownerId: selectedUser.id,
+      });
+      window.location.reload();
+    }
+    if (transactionType === "RENT") {
+      axios.put(`${baseUrl}/api/v1/real-estate/update/${id}`, {
+        availability: "UNDER_CONTRACT",
+        ownerId: selectedUser.id,
+      });
+      window.location.reload();
+    }
     console.log("Transaction added to client");
   }
 

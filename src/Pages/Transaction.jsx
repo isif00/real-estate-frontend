@@ -5,11 +5,9 @@ import generatePDF from "../components/Transaction/TransactionTemplate";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 
-function Transaction() {
+export default function Transaction() {
   const baseUrl = import.meta.env.VITE_HOST_URL;
   const [transactions, setTransactions] = useState([]);
-  const [buyerNames, setBuyerNames] = useState({});
-  const [realEstateNames, setRealEstateNames] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,55 +16,11 @@ function Transaction() {
       .then((response) => {
         setTransactions(response.data);
         setLoading(false);
-        console.log(response.data);
-
-        const buyerIds = [
-          ...new Set(response.data.map((transaction) => transaction.buyerId)),
-        ];
-        const realEstateIds = [
-          ...new Set(
-            response.data.map((transaction) => transaction.realEstateId)
-          ),
-        ];
-
-        // Fetch buyer names
-        buyerIds.forEach((buyerId) => {
-          axios
-            .get(`${baseUrl}/api/v1/client/get-client/${buyerId}`)
-            .then((response) => {
-              setBuyerNames((prevState) => ({
-                ...prevState,
-                [buyerId]: response.data.name,
-              }));
-            })
-            .catch((error) => {
-              console.error("Error fetching buyer name:", error);
-            });
-        });
-
-        realEstateIds.forEach((realEstateId) => {
-          axios
-            .get(
-              `${baseUrl}/api/v1/real-estate/get-real-estate/${realEstateId}`
-            )
-            .then((response) => {
-              setRealEstateNames((prevState) => ({
-                ...prevState,
-                [realEstateId]: response.data.name,
-              }));
-            })
-            .catch((error) => {
-              console.error("Error fetching real estate name:", error);
-            });
-        });
-      })
-      .catch((error) => {
-        console.error("Error fetching transactions:", error);
-      });
-  }, [baseUrl]);
+      }, [baseUrl]);
+  });
 
   const handlePrintClick = async (transaction) => {
-    const buyerName = buyerNames[transaction.buyerId];
+    const buyerName = transaction.realEstate.name;
     const pdfUrl = await generatePDF(transaction, buyerName);
     window.open(pdfUrl, "_blank");
   };
@@ -112,9 +66,9 @@ function Transaction() {
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   {transaction.id}
                 </Table.Cell>
-                <Table.Cell>{buyerNames[transaction.buyerId]}</Table.Cell>
+                <Table.Cell>{transaction.client.name}</Table.Cell>
                 <Table.Cell>
-                  {realEstateNames[transaction.realEstateId]}
+                  {transaction.realEstate.name}
                 </Table.Cell>
                 <Table.Cell>{transaction.transactionFee}</Table.Cell>
                 <Table.Cell>{transaction.transactionType}</Table.Cell>
@@ -142,5 +96,3 @@ function Transaction() {
     </div>
   );
 }
-
-export default Transaction;

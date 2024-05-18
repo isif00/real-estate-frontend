@@ -17,26 +17,6 @@ export default function Appointments() {
         setAppointments(response.data);
         console.log(response.data);
         setLoading(false);
-        const clientIds = [
-          ...new Set(response.data.map((appointment) => appointment.clientId)),
-        ];
-        clientIds.forEach((clientId) => {
-          axios
-            .get(`${baseUrl}/api/v1/client/get-client/${clientId}`)
-            .then((response) => {
-              setClientDetails((prevState) => ({
-                ...prevState,
-                [clientId]: {
-                  name: response.data.name,
-                  email: response.data.email,
-                  phone: response.data.phone,
-                },
-              }));
-            })
-            .catch((error) => {
-              console.error("Error fetching client details:", error);
-            });
-        });
       })
       .catch((error) => {
         console.error("Error fetching appointments:", error);
@@ -59,10 +39,9 @@ export default function Appointments() {
           <AppointmentCard
             id={appointment.id}
             key={appointment.id}
-            clientId={clientDetails[appointment.clientId]}
-            clientName={clientDetails[appointment.clientId]?.name}
-            clientEmail={clientDetails[appointment.clientId]?.email}
-            clientPhoneNumber={clientDetails[appointment.clientId]?.phone}
+            clientName={appointment.client.name}
+            clientEmail={appointment.client.email}
+            clientPhoneNumber={appointment.client.phone}
             date={appointment.date}
           />
         ))}
