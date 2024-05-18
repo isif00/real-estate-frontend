@@ -1,9 +1,12 @@
-@import 'flowbite/dist/flowbite.css';
+@import "flowbite/dist/flowbite.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
+body,
+html,
+#root {
+  height: 100%;
   background-color: white;
   color: black;
 }

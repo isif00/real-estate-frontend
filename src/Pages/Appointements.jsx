@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { AppointmentCard } from '../components/Appointment/Appointment';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import { AppointmentCard } from "../components/Appointment/Appointment";
+import axios from "axios";
 import "./Client.css";
 
 export default function Appointments() {
@@ -9,15 +9,19 @@ export default function Appointments() {
   const [clientDetails, setClientDetails] = useState({});
 
   useEffect(() => {
-    axios.get(`${baseUrl}/api/v1/appointment/all`)
-      .then(response => {
+    axios
+      .get(`${baseUrl}/api/v1/appointment/all`)
+      .then((response) => {
         setAppointments(response.data);
         console.log(response.data);
-        const clientIds = [...new Set(response.data.map(appointment => appointment.clientId))];
-        clientIds.forEach(clientId => {
-          axios.get(`${baseUrl}/api/v1/client/get-client/${clientId}`)
-            .then(response => {
-              setClientDetails(prevState => ({
+        const clientIds = [
+          ...new Set(response.data.map((appointment) => appointment.clientId)),
+        ];
+        clientIds.forEach((clientId) => {
+          axios
+            .get(`${baseUrl}/api/v1/client/get-client/${clientId}`)
+            .then((response) => {
+              setClientDetails((prevState) => ({
                 ...prevState,
                 [clientId]: {
                   name: response.data.name,
@@ -26,19 +30,19 @@ export default function Appointments() {
                 },
               }));
             })
-            .catch(error => {
-              console.error('Error fetching client details:', error);
+            .catch((error) => {
+              console.error("Error fetching client details:", error);
             });
         });
       })
-      .catch(error => {
-        console.error('Error fetching appointments:', error);
+      .catch((error) => {
+        console.error("Error fetching appointments:", error);
       });
   }, [baseUrl]);
 
   return (
-    <div className='client-container mx-8 mt-10 gap-6 flex text-black'>
-      {appointments.map(appointment => (
+    <div className="client-container mx-8 mt-10 gap-6 flex text-black">
+      {appointments.map((appointment) => (
         <AppointmentCard
           id={appointment.id}
           key={appointment.id}

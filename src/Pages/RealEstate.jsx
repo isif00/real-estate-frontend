@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import RealEstateCard from "../components/RealEstate/RealEstate";
 import "./Client.css";
@@ -25,8 +25,8 @@ function RealEstate() {
   );
 
   return (
-    <div className="flex flex-col w-[calc(100vw-200px)] ">
-      <div className="  py-4 mb-4 w-[1250px] border-b  border-zinc-200 flex flex-row     ">
+    <div className="flex flex-col h-full overflow-hidden">
+      <div className="py-4 mb-4 w-[1250px] border-b  border-zinc-200 flex items-center">
         <p className=" mx-8 text-3xl ">Real Estate</p>
         <div className=" w-[300px] flex  items-center ">
           <input
@@ -34,27 +34,27 @@ function RealEstate() {
             placeholder="Search Real Estate..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className=" h-[30px] ml-16  text-black mt-[5px]"
+            className="h-[30px] text-black border p-2 rounded-md"
           />
         </div>
       </div>
       <div className=" flex mx-8 gap-5">
-                {filteredRealEstate.map(realEstate => (
-                    <RealEstateCard
-                        id={realEstate.id}
-                        key={realEstate.id}
-                        name={realEstate.name}
-                        address={realEstate.address}
-                        city={realEstate.city}
-                        state={realEstate.state}
-                        price={realEstate.price}
-                        description= {realEstate.description}
-                        availibilty={realEstate.availability}
-                        listingType={realEstate.listingType}
-                        ownerId={realEstate.ownerId}
-                    />
-                ))}
-            </div>
+        {filteredRealEstate.map((realEstate) => (
+          <RealEstateCard
+            id={realEstate.id}
+            key={realEstate.id}
+            name={realEstate.name}
+            address={realEstate.address}
+            city={realEstate.city}
+            state={realEstate.state}
+            price={realEstate.price}
+            description={realEstate.description}
+            availibilty={realEstate.availability}
+            listingType={realEstate.listingType}
+            ownerId={realEstate.ownerId}
+          />
+        ))}
+      </div>
     </div>
   );
 }
