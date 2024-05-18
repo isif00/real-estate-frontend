@@ -13,6 +13,11 @@ import {
   MdOutlineEmail,
   MdOutlineHomeWork,
   MdPersonOutline,
+  MdEventAvailable,
+  MdAttachMoney ,
+  MdOutlineDescription,
+  MdOutlineBusinessCenter 
+
 } from "react-icons/md";
 
 export function RealEstateCard({
@@ -75,11 +80,11 @@ export function RealEstateCard({
         </div>
         <div className="flex flex-col gap-2">
           <span className="text-md flex items-center text-gray-500 dark:text-gray-400">
-            <MdOutlinePhone className="text-xl items-center font-semibold mr-3" />{" "}
+            <MdEventAvailable className="text-xl items-center font-semibold mr-3" />{" "}
             {availibilty}
           </span>
           <span className="text-md flex items-center text-gray-500 dark:text-gray-400">
-            <MdOutlineEmail className="text-xl items-center font-semibold mr-3" />{" "}
+            <MdAttachMoney  className="text-xl items-center font-semibold mr-3" />{" "}
             {price}
           </span>
 
@@ -88,19 +93,19 @@ export function RealEstateCard({
             {city}
           </span>
           <span className="text-md flex items-center text-gray-500 dark:text-gray-400">
-            <MdPersonOutline className="text-xl items-center font-semibold mr-3 " />{" "}
+            <MdOutlineHomeWork className="text-xl items-center font-semibold mr-3 " />{" "}
             {address}
           </span>
           <span className="text-md flex items-center text-gray-500 dark:text-gray-400">
-            <MdPersonOutline className="text-xl items-center font-semibold mr-3 " />{" "}
+            <MdOutlineHomeWork className="text-xl items-center font-semibold mr-3 " />{" "}
             {state}
           </span>
           <span className="text-md flex items-center text-gray-500 dark:text-gray-400">
-            <MdPersonOutline className="text-xl items-center font-semibold mr-3 " />{" "}
+            <MdOutlineDescription  className="text-xl items-center font-semibold mr-3 " />{" "}
             {description}
           </span>
           <span className="text-md flex items-center text-gray-500 dark:text-gray-400">
-            <MdPersonOutline className="text-xl items-center font-semibold mr-3 " />{" "}
+            <MdOutlineBusinessCenter  className="text-xl items-center font-semibold mr-3 " />{" "}
             {listingType}
           </span>
         </div>
