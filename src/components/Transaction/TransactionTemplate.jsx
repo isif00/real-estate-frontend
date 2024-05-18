@@ -14,7 +14,9 @@ const styles = StyleSheet.create({
 
 const MyDocument = ({ transaction, buyerName }) => (
   <Document>
+
     <Page size="A4" style={styles.page}>
+  <View>  <img alt="" src="/image.svg" className="w-[90px]" /> </View>
       <View style={styles.section}>
         <Text>Transaction ID: {transaction.id}</Text>
       </View>

@@ -59,21 +59,21 @@ const handlePrintClick = async (transaction) => {
 
 return (
   <div className="w-full mx-7 mt-8">
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto ">
       <Table>
-        <Table.Head>
-          <Table.HeadCell>Transaction Id</Table.HeadCell>
-          <Table.HeadCell>Buyer</Table.HeadCell>
-          <Table.HeadCell>RealEstate</Table.HeadCell>
-          <Table.HeadCell>Price</Table.HeadCell>
-          <Table.HeadCell>Type</Table.HeadCell>
-          <Table.HeadCell>
-            <span className="sr-only">Print</span>
+        <Table.Head className='bg-white border border-zinc-200'>
+          <Table.HeadCell className='bg-white '>Transaction Id</Table.HeadCell>
+          <Table.HeadCell className='bg-white'  >Buyer</Table.HeadCell>
+          <Table.HeadCell className='bg-white'>RealEstate</Table.HeadCell>
+          <Table.HeadCell className='bg-white'>Price</Table.HeadCell>
+          <Table.HeadCell className='bg-white'>Type</Table.HeadCell>
+          <Table.HeadCell className='bg-white'>
+            Action
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
           {transactions.map(transaction => (
-            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={transaction.id}>
+            <Table.Row className="bg-white border border-zinc-200 dark:border-gray-700 dark:bg-gray-800" key={transaction.id}>
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">{transaction.id}</Table.Cell>
               <Table.Cell>{buyerNames[transaction.buyerId]}</Table.Cell>
               <Table.Cell>{realEstateNames[transaction.realEstateId]}</Table.Cell>

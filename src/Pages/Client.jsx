@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ClientCard from '../components/Client/client';
 import AddClientPopup from '../components/Client/AddClientPopup';
 import axios from 'axios';
-import "./Client.css";
+
 
 function Client() {
   const hostUrl = import.meta.env.VITE_HOST_URL;
@@ -28,28 +28,34 @@ function Client() {
   );
 
   return (
-    <div className='flex flex-col mx-8 mt-8'>
-      <div className="flex mb-5">
-        <div className="">
+    
+    <div className='flex flex-col w-[calc(100vw-200px)]  '>
+     <div className='  py-4 mb-4 w-[1250px] border-b  border-zinc-200 flex flex-row justify-between items-center    '>
+     <p className=' mx-8 text-3xl '>Clients</p>
+     <div className=" w-[300px] flex  items-center ">
           <input
             type="text"
             placeholder="Search clients..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="h-[30px] text-black"
+            className=" h-[30px] mt-[7px]  text-black"
           />
         </div>
-        <button
-          className="inline-flex items-center rounded-lg bg-cyan-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 h-[30px] dark:focus:ring-cyan-800"
-          onClick={() => setShowCreatePopup(true)}
-        >
-          Add Client
-        </button>
-        {showCreatePopup && (
-          <AddClientPopup onClose={() => setShowCreatePopup(false)} />
-        )}
-      </div>
-      <div className="flex gap-5">
+        <div className=" ">
+       
+       <button
+         className="inline-flex items-center mx-8 rounded-[4px]    bg-[#0023FC] px-4 py-2 text-center text-sm font-medium text-white hover:bg-[#221fe6] focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 h-[30px] dark:focus:ring-cyan-800"
+         onClick={() => setShowCreatePopup(true)}
+       >
+         Add Client <span className='ml-2'> +</span> 
+       </button>
+       {showCreatePopup && (
+         <AddClientPopup onClose={() => setShowCreatePopup(false)} />
+       )}
+     </div>
+     </div>
+     
+      <div className="flex mx-8 gap-5">
         {filteredClients.map(client => (
           <ClientCard
             className="px-4 py-4"
