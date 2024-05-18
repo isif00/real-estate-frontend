@@ -1,43 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import StatCard from "../components/Statistics/StatCard";
+import axios from "axios";
 import {
   MdPersonOutline,
   MdOutlineHomeWork,
   MdOutlineHandshake,
 } from "react-icons/md";
-import { Line } from "react-chartjs-2";
+
 
 function Dashboard() {
-  const Data = [
-    { id: 1, month: "January", transactions: 10 },
-    { id: 2, month: "February", transactions: 20 },
-    { id: 3, month: "March", transactions: 30 },
-    { id: 4, month: "April", transactions: 40 },
-    { id: 5, month: "May", transactions: 50 },
-    { id: 6, month: "June", transactions: 60 },
-    { id: 7, month: "July", transactions: 70 },
-    { id: 8, month: "August", transactions: 80 },
-    { id: 9, month: "September", transactions: 90 },
-    { id: 10, month: "October", transactions: 100 },
-    { id: 11, month: "November", transactions: 110 },
-    { id: 12, month: "December", transactions: 120 },
-  ];
+  const baseUrl = import.meta.env.VITE_HOST_URL;
+  const [realEstateNumber, setRealEstateNumber] = useState();
+  const [clientNumber, setClientNumber] = useState();
+  const [transactionNumber, setTransactionNumber] = useState();
 
-  const [chartData, setChartData] = useState({
-    labels: Data.map((data) => data.month),
-    datasets: [
-      {
-        label: "Transactions Per Month",
-        data: Data.map((data) => data.transactions),
-        backgroundColor: "rgba(75,192,192,0.2)",
-        borderColor: "rgba(75,192,192,1)",
-        borderWidth: 2,
-      },
-    ],
-  });
+  const [loading, setLoading] = useState(true);
 
-  // Generate a unique key to force re-render of Line component
-  const [chartKey, setChartKey] = useState(0);
+
+  useEffect(() => {
+    axios.get(`${baseUrl}/api/v1/client/all`).then((response) => {
+      setClientNumber(response.data.length);
+      setLoading(false);
+
+    });
+  }, [baseUrl]);
+
+  useEffect(() => {
+    axios.get(`${baseUrl}/api/v1/transaction/all`).then((response) => {
+      setTransactionNumber(response.data.length);
+      setLoading(false);
+    });
+  }, [baseUrl]);
+
+  useEffect(() => {
+    axios.get(`${baseUrl}/api/v1/real-estate/all`).then((response) => {
+      setRealEstateNumber(response.data.length);
+      setLoading(false);
+
+    });
+  }, [baseUrl]);
 
   return (
     <div className="flex flex-col h-full overflow-auto">
@@ -45,42 +46,30 @@ function Dashboard() {
         <p className="mx-8 text-3xl">Statistics</p>
       </div>
       <div className="flex mx-11 my-3 gap-8 justify-center">
-        <StatCard number={99} icon={<MdPersonOutline />} title="Clients" />
         <StatCard
-          number={99}
+          loading={loading}
+          number={clientNumber}
+          icon={<MdPersonOutline />}
+          title="Clients"
+        />
+        <StatCard
+          loading={loading}
+          number={realEstateNumber}
           icon={<MdOutlineHomeWork />}
           title="Real Estates"
         />
         <StatCard
-          number={99}
+          loading={loading}
+          number={transactionNumber}
           icon={<MdOutlineHandshake />}
           title="Transaction Made"
         />
       </div>
       <div className="flex justify-center mb-8">
         <div className="w-[1000px] h-[500px]">
-          <Line
-            key={chartKey} // Add key prop
-            data={chartData}
-            options={{
-              plugins: {
-                title: {
-                  display: true,
-                  text: "Transactions Per Month",
-                },
-                legend: {
-                  display: false,
-                },
-              },
-              maintainAspectRatio: false,
-            }}
-          />
+          crap bug
         </div>
       </div>
-      {/* Button to trigger re-render */}
-      <button onClick={() => setChartKey((prevKey) => prevKey + 1)}>
-        Render New Chart
-      </button>
     </div>
   );
 }

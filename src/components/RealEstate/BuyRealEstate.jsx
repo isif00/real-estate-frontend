@@ -40,6 +40,8 @@ export function BuyPopup({ onClose, id }) {
       alert("Please fill all the fields.");
       return;
     }
+
+    
     const newTransaction = {
       realEstateId: id,
       buyerId: selectedUser.id,
@@ -51,12 +53,22 @@ export function BuyPopup({ onClose, id }) {
       .post(`${baseUrl}/api/v1/transaction/add`, newTransaction)
       .then((response) => {
         console.log("Transaction Created", response);
+        handleAddTransactionToClient(response.data.id);
         onClose();
       })
       .catch((error) => {
         console.error("Error creating transaction:", error);
       });
   };
+
+  const handleAddTransactionToClient = () => {
+    console.log("Adding transaction to client");
+    console.log("----->", id);
+    axios.put(`${baseUrl}/api/v1/client/add-transaction/${selectedUser.id}`, {
+      transactionId: id,
+    });
+    console.log("Transaction added to client");
+  }
 
   return (
     <Modal show={true} onClose={onClose}>

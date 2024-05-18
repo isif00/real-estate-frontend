@@ -44,23 +44,30 @@ export default function Appointments() {
   }, [baseUrl]);
 
   return (
-    <div className="client-container mx-8 mt-10 gap-6 flex text-black">
-      {loading && (
-        <Box sx={{ width: "100%" }}>
-          <LinearProgress />
-        </Box>
-      )}
-      {appointments.map((appointment) => (
-        <AppointmentCard
-          id={appointment.id}
-          key={appointment.id}
-          clientId={clientDetails[appointment.clientId]}
-          clientName={clientDetails[appointment.clientId]?.name}
-          clientEmail={clientDetails[appointment.clientId]?.email}
-          clientPhoneNumber={clientDetails[appointment.clientId]?.phone}
-          date={appointment.date}
-        />
-      ))}
+
+    <div className="flex flex-col h-full overflow-hidden">
+      <div className="py-4 mb-4 w-[1250px] border-b  border-zinc-200 flex items-center">
+        <p className=" mx-8 text-3xl ">Appointments</p>
+      </div>
+      <div className=" flex mx-8 gap-5">
+        {loading && (
+          <Box sx={{ width: "100%" }}>
+            <LinearProgress />
+          </Box>
+        )}
+        {appointments.map((appointment) => (
+          <AppointmentCard
+            id={appointment.id}
+            key={appointment.id}
+            clientId={clientDetails[appointment.clientId]}
+            clientName={clientDetails[appointment.clientId]?.name}
+            clientEmail={clientDetails[appointment.clientId]?.email}
+            clientPhoneNumber={clientDetails[appointment.clientId]?.phone}
+            date={appointment.date}
+          />
+        ))}
+      </div>
+
     </div>
   );
 }

@@ -10,6 +10,7 @@ function RealEstate() {
   const [RealEstate, setRealEstate] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     axios.get(`${baseUrl}/api/v1/real-estate/all`).then((response) => {
       setRealEstate(response.data);
