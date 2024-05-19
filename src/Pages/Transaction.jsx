@@ -21,7 +21,7 @@ export default function Transaction() {
   });
 
   const handlePrintClick = async (transaction) => {
-    const buyerName = transaction.realEstate.name;
+    const buyerName = transaction.client.name;
     const pdfUrl = await generatePDF(transaction, buyerName);
     window.open(pdfUrl, "_blank");
   };
