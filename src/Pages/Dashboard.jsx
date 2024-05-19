@@ -83,7 +83,7 @@ function Dashboard() {
         />
       </div>
       <div className="flex justify-center mb-8">
-        <div className="w-[1000px] h-[500px]">
+        <div className="w-full mx-8 py-8   h-[500px]   ">
           <ApexChart series={seriesData} />
         </div>
       </div>

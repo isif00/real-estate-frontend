@@ -34,7 +34,7 @@ function Client() {
     <div className="flex flex-col h-full overflow-hidden">
       <div className="py-4 mb-4 w-full border-b border-zinc-200 flex justify-between items-center">
         <p className="mx-8 text-3xl">Clients</p>
-        <div className="w-[300px] flex items-center">
+        <div className="w-[300px] flex items-center ">
           <input
             type="text"
             placeholder="Search clients..."
@@ -56,7 +56,7 @@ function Client() {
         </div>
       </div>
 
-      <div className="flex mx-8 gap-5 overflow-auto">
+      <div className="flex flex-wrap gap-5 mx-8 overflow-auto">
         {loading && (
           <Box sx={{ width: "100%" }}>
             <LinearProgress />

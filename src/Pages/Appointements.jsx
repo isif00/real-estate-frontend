@@ -28,7 +28,7 @@ export default function Appointments() {
       <div className="py-4 mb-4 w-[1250px] border-b  border-zinc-200 flex items-center">
         <p className=" mx-8 text-3xl ">Appointments</p>
       </div>
-      <div className=" flex mx-8 gap-5">
+      <div className=" flex flex-wrap mx-8 gap-5">
         {loading && (
           <Box sx={{ width: "100%" }}>
             <LinearProgress />

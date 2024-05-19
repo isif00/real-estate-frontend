@@ -41,7 +41,7 @@ function RealEstate() {
           />
         </div>
       </div>
-      <div className=" flex mx-8 gap-5">
+      <div className=" flex flex-wrap mx-8 gap-5">
         {loading && (
           <Box sx={{ width: "100%" }}>
             <LinearProgress />
