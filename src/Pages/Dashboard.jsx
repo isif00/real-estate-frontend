@@ -14,23 +14,10 @@ function Dashboard() {
   const [realEstateNumber, setRealEstateNumber] = useState();
   const [clientNumber, setClientNumber] = useState();
   const [transactionNumber, setTransactionNumber] = useState();
-
+  const [seriesData, setSeriesData] = useState([{}]);
   const [loading, setLoading] = useState(true);
 
-  const seriesData = [
-    {
-      name: "Transactions",
-      data: [28, 29, 33, 36, 32, 32, 33]
-    },
-    {
-      name: "Clients",
-      data: [12, 11, 14, 18, 17, 13, 13]
-    },
-    {
-      name: "Real Estates",
-      data: [0, 3, 2, 5, 8, 10, 9]
-    }
-  ];
+
   useEffect(() => {
     axios.get(`${baseUrl}/api/v1/client/all`).then((response) => {
       setClientNumber(response.data.length);
@@ -54,6 +41,22 @@ function Dashboard() {
     });
   }, [baseUrl]);
 
+  useEffect(() => {
+    axios.get(`${baseUrl}/api/v1/history/all`)
+      .then((response) => {
+        const transformedData = response.data.map(item => ({
+          name: item.operation === "TRANSACTION" ? "Transactions" :
+                item.operation === "CLIENT" ? "Clients" :
+                item.operation === "REAL_ESTATE" ? "Real Estates" : "Unknown",
+          data: item.numberOfTransactionsPerMonth
+        }));
+        setSeriesData(transformedData);
+      })
+      .catch((error) => {
+        console.error("Error fetching history data:", error);
+      });
+  }, []);
+  
   return (
     <div className="flex flex-col h-full overflow-auto">
       <div className="py-4 mb-4 w-full border-b border-zinc-200 flex justify-between items-center">

@@ -12,6 +12,9 @@ export function BuyPopup({ onClose, realEstate }) {
   const [price, setPrice] = useState("");
   const [transactionType, setTransactionType] = useState("");
 
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth();
+
   useEffect(() => {
     axios
       .get(`${baseUrl}/api/v1/client/all`)
@@ -34,54 +37,54 @@ export function BuyPopup({ onClose, realEstate }) {
     setIsOpen(false);
   };
 
-  const handleTransaction = () => {
-    if (!selectedUser || !transactionType || !price) {
-      alert("Please fill all the fields.");
-      return;
+  const handleTransaction = async () => {
+    try {
+      if (!selectedUser || !transactionType || !price) {
+        alert("Please fill all the fields.");
+        return;
+      }
+  
+      const newTransaction = {
+        realEstate: realEstate,
+        client: selectedUser,
+        transactionType,
+        transactionFee: price,
+      };
+      const transactionResponse = await axios.post(`${baseUrl}/api/v1/transaction/add`, newTransaction);
+      console.log("Transaction Created", transactionResponse);
+  
+      const transactionId = transactionResponse.data.id;
+      handleAddTransactionToClient(transactionId);
+  
+      const historyResponse = await axios.get(`${baseUrl}/api/v1/history/get-history/66494ef339ef7903ac3a9d04`);
+      const history = historyResponse.data;
+      history.numberOfTransactionsPerMonth[currentMonth] += 1;
+      const updateHistoryResponse = await axios.put(`${baseUrl}/api/v1/history/update/66494ef339ef7903ac3a9d04`, history);
+      console.log("History Updated", updateHistoryResponse);
+  
+      onClose();
+    } catch (error) {
+      console.error("Error:", error);
     }
-
-    const newTransaction = {
-      realEstate: realEstate,
-      client: selectedUser,
-      transactionType,
-      transactionFee: price,
-    };
-
-    axios
-      .post(`${baseUrl}/api/v1/transaction/add`, newTransaction)
-      .then((response) => {
-        console.log("Transaction Created", response);
-        handleAddTransactionToClient(response.data.id);
-        onClose();
-      })
-      .catch((error) => {
-        console.error("Error creating transaction:", error);
-      });
   };
-
-  const handleAddTransactionToClient = (id) => {
-    console.log("Adding transaction to client");
-    console.log("----->", id);
-    axios.put(`${baseUrl}/api/v1/client/add-transaction/${selectedUser.id}`, {
-      transactionId: id,
-    });
-
-    if (transactionType === "BUY") {
-      axios.put(`${baseUrl}/api/v1/real-estate/update/${id}`, {
-        availability: "NOT_AVAILABLE",
+  
+  const handleAddTransactionToClient = async (transactionId) => {
+    try {
+      console.log("Adding transaction to client:", transactionId);
+      await axios.put(`${baseUrl}/api/v1/client/add-transaction/${selectedUser.id}`, { transactionId });
+  
+      const updateData = {
+        availability: transactionType === "BUY" ? "NOT_AVAILABLE" : "UNDER_CONTRACT",
         ownerId: selectedUser.id,
-      });
-      window.location.reload();
+      };
+      await axios.put(`${baseUrl}/api/v1/real-estate/update/${realEstate}`, updateData);
+  
+      console.log("Transaction added to client");
+    } catch (error) {
+      console.error("Error adding transaction to client:", error);
     }
-    if (transactionType === "RENT") {
-      axios.put(`${baseUrl}/api/v1/real-estate/update/${id}`, {
-        availability: "UNDER_CONTRACT",
-        ownerId: selectedUser.id,
-      });
-      window.location.reload();
-    }
-    console.log("Transaction added to client");
-  }
+  };
+  
 
   return (
     <Modal show={true} onClose={onClose}>

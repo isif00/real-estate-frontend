@@ -15,9 +15,8 @@ function AddClientPopup({ onClose }) {
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
 
-  const numberOfTransactionPerMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-  const handleAdding = () => {
+  const handleAdding = async () => {
     const newData = {
       name,
       phone,
@@ -27,18 +26,26 @@ function AddClientPopup({ onClose }) {
       realEstateIds: [],
       transactionIds: [],
     };
-    axios
-      .post(`${baseUrl}/api/v1/client/add`, newData)
-      .then((response) => {
-        console.log("Client Created", response);
-        numberOfTransactionPerMonth[currentMonth] += 1;
-        onClose();
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.error("Error creating client:", error);
-      });
+  
+    try {
+      const createClientResponse = await axios.post(`${baseUrl}/api/v1/client/add`, newData);
+      console.log("Client Created", createClientResponse);
+      onClose();
+  
+      const historyResponse = await axios.get(`${baseUrl}/api/v1/history/get-history/66494efb39ef7903ac3a9d05`);
+      const history = historyResponse.data;
+  
+      history.numberOfTransactionsPerMonth[currentMonth] += 1;
+  
+      const updateHistoryResponse = await axios.put(`${baseUrl}/api/v1/history/update/66494efb39ef7903ac3a9d05`, history);
+      console.log("History Updated", updateHistoryResponse);
+  
+      window.location.reload();
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
+  
 
   return (
     <div className="popup-container">

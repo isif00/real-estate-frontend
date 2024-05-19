@@ -15,6 +15,9 @@ function AddRealEstate({ id, onClose }) {
   const [availability, setAvailability] = useState("");
   const [listingType, setListingType] = useState("");
 
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth();
+
   const handleCreating = async () => {
     console.log(id);
     const newData = {
@@ -29,6 +32,21 @@ function AddRealEstate({ id, onClose }) {
       ownerId: id,
     };
     try {
+
+      const createRealEstateResponse = await axios.post(`${baseUrl}/api/v1/real-estate/add`, newData);
+      console.log("RealEstate Created", createRealEstateResponse);
+      onClose();
+  
+      const historyResponse = await axios.get(`${baseUrl}/api/v1/history/get-history/66494f0439ef7903ac3a9d06`);
+      const history = historyResponse.data;
+  
+      history.numberOfTransactionsPerMonth[currentMonth] += 1;
+  
+      const updateHistoryResponse = await axios.put(`${baseUrl}/api/v1/history/update/66494f0439ef7903ac3a9d06`, history);
+      console.log("History Updated", updateHistoryResponse);
+  
+      window.location.reload();
+      
       const response = await axios.post(
         `${baseUrl}/api/v1/real-estate/add`,
         newData
