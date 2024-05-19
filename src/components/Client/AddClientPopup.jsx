@@ -12,6 +12,11 @@ function AddClientPopup({ onClose }) {
   const [city, setCity] = useState("");
   const [clientType, setClientType] = useState("");
 
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth();
+
+  const numberOfTransactionPerMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
   const handleAdding = () => {
     const newData = {
       name,
@@ -26,6 +31,7 @@ function AddClientPopup({ onClose }) {
       .post(`${baseUrl}/api/v1/client/add`, newData)
       .then((response) => {
         console.log("Client Created", response);
+        numberOfTransactionPerMonth[currentMonth] += 1;
         onClose();
         window.location.reload();
       })

@@ -7,6 +7,7 @@ import {
   MdOutlineHandshake,
 } from "react-icons/md";
 
+import ApexChart from "../components/charts/ApexChart";
 
 function Dashboard() {
   const baseUrl = import.meta.env.VITE_HOST_URL;
@@ -16,7 +17,20 @@ function Dashboard() {
 
   const [loading, setLoading] = useState(true);
 
-
+  const seriesData = [
+    {
+      name: "Transactions",
+      data: [28, 29, 33, 36, 32, 32, 33]
+    },
+    {
+      name: "Clients",
+      data: [12, 11, 14, 18, 17, 13, 13]
+    },
+    {
+      name: "Real Estates",
+      data: [0, 3, 2, 5, 8, 10, 9]
+    }
+  ];
   useEffect(() => {
     axios.get(`${baseUrl}/api/v1/client/all`).then((response) => {
       setClientNumber(response.data.length);
@@ -67,7 +81,7 @@ function Dashboard() {
       </div>
       <div className="flex justify-center mb-8">
         <div className="w-[1000px] h-[500px]">
-          crap bug
+          <ApexChart series={seriesData} />
         </div>
       </div>
     </div>
@@ -75,9 +89,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-// TODO: Implement Dashboard (backend and frontend)
-// TODO: update the client transactions (backend and frontend)
-// TODO: display the client transactions
-// TODO: add the name of the client and the realestate to the transaction
-// TODO: implement the agents authentifications (backend and frontend)

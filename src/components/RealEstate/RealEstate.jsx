@@ -9,10 +9,7 @@ import { BuyPopup } from "./BuyRealEstate";
 import {
   MdOutlineDelete,
   MdOutlineModeEdit,
-  MdOutlinePhone,
-  MdOutlineEmail,
   MdOutlineHomeWork,
-  MdPersonOutline,
   MdEventAvailable,
   MdAttachMoney ,
   MdOutlineDescription,
